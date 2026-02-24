@@ -3,123 +3,228 @@ class Data:
     Clase con métodos para operaciones y manipulaciones de estructuras de datos.
     Incluye implementaciones y algoritmos para arreglos, listas y otras estructuras.
     """
-    
+
     def invertir_lista(self, lista):
         """
         Invierte el orden de los elementos en una lista sin usar reversed() o lista[::-1].
-        
+
         Args:
             lista (list): Lista a invertir
-            
+
         Returns:
             list: Lista con los elementos en orden inverso
         """
-        pass
-    
+        invertida = []
+        for i in range(len(lista) - 1, -1, -1):
+            invertida.append(lista[i])
+        return invertida
+
     def buscar_elemento(self, lista, elemento):
         """
         Busca un elemento en una lista y devuelve su índice (o -1 si no existe).
         Implementación manual sin usar index().
-        
+
         Args:
             lista (list): Lista donde buscar
             elemento: Elemento a buscar
-            
+
         Returns:
             int: Índice del elemento o -1 si no se encuentra
         """
-        pass
-    
+        for i in range(len(lista)):
+            if type(lista[i]) == type(elemento) and lista[i] == elemento:
+                return i
+        return -1
+
     def eliminar_duplicados(self, lista):
         """
         Elimina elementos duplicados de una lista sin usar set().
         Mantiene el orden original de aparición.
-        
+
         Args:
             lista (list): Lista con posibles duplicados
-            
+
         Returns:
             list: Lista sin elementos duplicados
         """
-        pass
-    
+        resultado = []
+        for x in lista:
+            repetido = False
+            for y in resultado:
+                # Importante: comparar por tipo + valor (para que 1 y True NO se consideren iguales)
+                if type(y) == type(x) and y == x:
+                    repetido = True
+                    break
+            if not repetido:
+                resultado.append(x)
+        return resultado
+
     def merge_ordenado(self, lista1, lista2):
         """
         Combina dos listas ordenadas en una sola lista ordenada.
-        
+
         Args:
             lista1 (list): Primera lista ordenada
             lista2 (list): Segunda lista ordenada
-            
+
         Returns:
             list: Lista combinada y ordenada
         """
-        pass
-    
+        i, j = 0, 0
+        resultado = []
+
+        while i < len(lista1) and j < len(lista2):
+            if lista1[i] <= lista2[j]:
+                resultado.append(lista1[i])
+                i += 1
+            else:
+                resultado.append(lista2[j])
+                j += 1
+
+        while i < len(lista1):
+            resultado.append(lista1[i])
+            i += 1
+
+        while j < len(lista2):
+            resultado.append(lista2[j])
+            j += 1
+
+        return resultado
+
     def rotar_lista(self, lista, k):
         """
         Rota los elementos de una lista k posiciones a la derecha.
-        
+
         Args:
             lista (list): Lista a rotar
             k (int): Número de posiciones a rotar
-            
+
         Returns:
             list: Lista rotada
         """
-        pass
-    
+        n = len(lista)
+        if n == 0:
+            return []
+
+        k = k % n
+        resultado = []
+        for i in range(n):
+            resultado.append(lista[(i - k) % n])
+        return resultado
+
     def encuentra_numero_faltante(self, lista):
         """
         Encuentra el número faltante en una lista de enteros del 1 al n.
-        
+
         Args:
             lista (list): Lista de enteros del 1 al n con un número faltante
-            
+
         Returns:
             int: El número que falta en la secuencia
         """
-        pass
-    
+        n = len(lista) + 1
+        suma_esperada = n * (n + 1) // 2
+        suma_actual = 0
+        for x in lista:
+            suma_actual += x
+        return suma_esperada - suma_actual
+
     def es_subconjunto(self, conjunto1, conjunto2):
         """
         Verifica si conjunto1 es subconjunto de conjunto2 sin usar set.
-        
+
         Args:
             conjunto1 (list): Posible subconjunto
             conjunto2 (list): Conjunto principal
-            
+
         Returns:
             bool: True si conjunto1 es subconjunto de conjunto2, False en caso contrario
         """
-        pass
-    
+        for x in conjunto1:
+            encontrado = False
+            for y in conjunto2:
+                if type(y) == type(x) and y == x:
+                    encontrado = True
+                    break
+            if not encontrado:
+                return False
+        return True
+
     def implementar_pila(self):
         """
         Implementa una estructura de datos tipo pila (stack) usando listas.
-        
+
         Returns:
             dict: Diccionario con métodos push, pop, peek y is_empty
         """
-        pass
-    
+        pila = []
+
+        def push(x):
+            pila.append(x)
+
+        def pop():
+            if len(pila) == 0:
+                return None
+            return pila.pop()
+
+        def peek():
+            if len(pila) == 0:
+                return None
+            return pila[-1]
+
+        def is_empty():
+            return len(pila) == 0
+
+        return {"push": push, "pop": pop, "peek": peek, "is_empty": is_empty}
+
     def implementar_cola(self):
         """
         Implementa una estructura de datos tipo cola (queue) usando listas.
-        
+
         Returns:
             dict: Diccionario con métodos enqueue, dequeue, peek y is_empty
         """
-        pass
-    
+        cola = []
+
+        def enqueue(x):
+            cola.append(x)
+
+        def dequeue():
+            if len(cola) == 0:
+                return None
+            return cola.pop(0)
+
+        def peek():
+            if len(cola) == 0:
+                return None
+            return cola[0]
+
+        def is_empty():
+            return len(cola) == 0
+
+        return {"enqueue": enqueue, "dequeue": dequeue, "peek": peek, "is_empty": is_empty}
+
     def matriz_transpuesta(self, matriz):
         """
         Calcula la transpuesta de una matriz.
-        
+
         Args:
             matriz (list): Lista de listas que representa una matriz
-            
+
         Returns:
             list: Matriz transpuesta
         """
-        pass
+        if matriz == []:
+            return []
+
+        filas = len(matriz)
+        columnas = len(matriz[0])
+        transpuesta = []
+
+        for j in range(columnas):
+            nueva_fila = []
+            for i in range(filas):
+                nueva_fila.append(matriz[i][j])
+            transpuesta.append(nueva_fila)
+
+        return transpuesta
