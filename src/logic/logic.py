@@ -24,3 +24,11 @@ class Logica:
 
     def XNOR(self, a, b):
         return not (bool(a) ^ bool(b))
+
+    # Implicación lógica (A -> B) = (¬A) ∨ B
+    def implicacion(self, a, b):
+        return (not bool(a)) or bool(b)
+
+    # Bi-implicación (A <-> B) = (A -> B) ∧ (B -> A) = XNOR(A, B)
+    def bi_implicacion(self, a, b):
+        return self.XNOR(a, b)
